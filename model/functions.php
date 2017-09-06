@@ -163,6 +163,11 @@ function ajouterUser($user){
         
 }
 
+function ajouterEmploye($employe){
+    
+    
+}
+
 //Show
 //Affichage et formattage des données
 function showProduit($fieldNameArray, $link) {

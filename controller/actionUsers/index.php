@@ -19,12 +19,18 @@ if (isset($data['submit'])) {
         include_once '../../app/Users/User.php';
         $user = new User($type, $login, $password, $idOfInfos);
         include_once '../../app/Employe/Employe.class.php';
+        $employe = new Employe($nom, $prenom);
         if ($type == "Admin") {
             ajouterUser($user);
             $msg = "<p style='color:green'>Admin créé avec succès...</p>";
             header("Location:../../view/Admin/index.php?param=" . $msg);
+        }else{
+            ajouterEmploye($employe);
+            $msg = "<p style='color:green'>Admin créé avec succès...</p>";
+            header("Location:../../view/Admin/index.php?param=" . $msg);
+            
         }
-        $employe = new Employe($nom, $prenom);
+        
 
         ajouterClient($client);
         $msg = "<p style='color:green'>Votre inscription a été effectuée avec succès...</p>";
