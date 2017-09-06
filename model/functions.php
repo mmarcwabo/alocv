@@ -165,7 +165,14 @@ function ajouterUser($user){
 
 function ajouterEmploye($employe){
     
-    
+    $iQuery = "INSERT INTO employe (nom, prenom) VALUES(:nom, :prenom);";
+    $dbCon = connectDb();
+    $req = $dbCon->prepare($iQuery);
+    $req->execute(array(
+        'nom' => $employe->getNom(),
+        'prenom' => $employe->getPrenom()
+    ));
+    $req->closeCursor();
 }
 
 //Show
