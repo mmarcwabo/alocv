@@ -13,7 +13,7 @@
                 <label for="login">Nom d'utilisateur : </label><input type="text" name="login" /><br/>
                 <label for="password">Mot de passe : </label><input type="password" name="password"/><br/>
                 <label for="role">Rôle : </label>
-                <select name="role">
+                <select name="type">
                     <option>Admin</option>
                     <option>Employe</option>
                 </select><br/>
