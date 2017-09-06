@@ -149,6 +149,20 @@ function  ajouterVoiture($voiture) {
     echo "<script type='text/javascript'>alert('Succes')</script>";
 }
 
+function ajouterUser($user){
+    $iQuery = "INSERT INTO users (type, login, password, idOfInfos) VALUES(:type, :login, :password, :idOfInfos);";
+    $dbCon = connectDb();
+    $req = $dbCon->prepare($iQuery);
+    $req->execute(array(
+        'type' => $user->getType(),
+        'login' => $user->getLogin(),
+        'password' => $user->getPassword(),
+        'idOfInfos' => $user->getIdOfInfos()
+    ));
+    $req->closeCursor();
+        
+}
+
 //Show
 //Affichage et formattage des données
 function showProduit($fieldNameArray, $link) {
