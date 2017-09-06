@@ -88,7 +88,7 @@ function afficherClient($fieldNameArray, $link) {
 }
 
 //Edit
-function editVendeur($idvendeur) {
+function modifierClient($idclient) {
 
     $sQuery = "SELECT * FROM vendeur WHERE idvendeur = ?";
     $dbCon = connectDb();
@@ -103,7 +103,7 @@ function editVendeur($idvendeur) {
 }
 
 //Writing the edit action to database
-function applyEditVendeur($vendeur, $idvendeur) {
+function appliquerModiferClient($client, $idclient) {
     $uQuery = "UPDATE vendeur SET nom=?, user=?, pass=? WHERE idvendeur =" . $idvendeur;
     $dbCon = connectDb();
     $req = $dbCon->prepare($uQuery);
@@ -115,8 +115,8 @@ function applyEditVendeur($vendeur, $idvendeur) {
     $req->closeCursor();
 }
 
-//Delete vendeur
-function deleteVendeur($idvendeur) {
+//Supprimer
+function supprimerClient($idvendeur) {
 
     $dQuery = "DELETE FROM vendeur WHERE idvendeur = ? ";
     $dbCon = connectDb();
@@ -126,6 +126,7 @@ function deleteVendeur($idvendeur) {
 }
 
 //--------------------------------------------------------------------------------------------------
+#Voiture
 //Ajouter
 function ajouterVoiture($voiture) {
     $iQuery = "INSERT INTO voiture (numChassi, numPlaque, motorisation, boite, puissance, marque, prix, categorie, photo, assurance_idassurance) VALUES(:numChassi, :numPlaque, :motorisation, :boite, :puissance, :marque, :prix, :categorie, :photo, :assurance_idassurance);";
@@ -146,6 +147,9 @@ function ajouterVoiture($voiture) {
     $req->closeCursor();
     echo "<script type='text/javascript'>alert('Succes')</script>";
 }
+
+//--------------------------------------------------------------------------------------------------------------------------------
+#User
 
 function ajouterUser($user) {
     $iQuery = "INSERT INTO users (type, login, password, idOfInfos) VALUES(:type, :login, :password, :idOfInfos);";
@@ -174,7 +178,7 @@ function ajouterEmploye($employe) {
 
 //Show
 //Affichage et formattage des données
-function showProduit($fieldNameArray, $link) {
+function afficherVoiture($fieldNameArray, $link) {
     $sQuery = "SELECT * FROM produit,stock WHERE produit.idproduit = stock.produit_idproduit AND ?";
     $dbCon = connectDb();
     $pQuery = $dbCon->prepare($sQuery);
@@ -211,98 +215,6 @@ function showProduit($fieldNameArray, $link) {
         echo '<td><span class="link link-success"><a href="../operation/addOperation.php?idproduit=' . $idproduit . '">Gérer</a></span><span class="link link-primary"><a href="editProduit.php?idproduit=' . $idproduit . '">Modif.</a></span><span class="link link-danger"><a href="deleteProduit.php?idproduit=' . $idproduit . '">Suppr.</a></span></td></tr>';
     }
     echo '</tbody></table>';
-}
-
-//edit
-function editProduit($idproduit) {
-
-    $sQuery = "SELECT * FROM produit, stock WHERE idproduit=produit_idproduit AND idproduit = ?";
-    $dbCon = connectDb();
-    $req = $dbCon->prepare($sQuery);
-    $req->execute(array($idproduit));
-    $result = $req->fetch();
-    if ($req->rowCount() > 0) {
-        return $result;
-    } else {
-        return "Erreur lors de la modification du produit";
-    }
-}
-
-//Applying edit effect
-function applyEditProduit($produit, $idproduit) {
-
-    $uQuery = "UPDATE produit SET denomination=?, prix=?, description=? WHERE idproduit =" . $idproduit;
-    $dbCon = connectDb();
-    $req = $dbCon->prepare($uQuery);
-    $req->execute(array(
-        $produit->getDenomination(),
-        $produit->getPrix(),
-        $produit->getDescription()
-    ));
-    $req->closeCursor();
-}
-
-//delete
-function deleteProduit($idproduit) {
-
-    $dQuery = "DELETE FROM produit WHERE idproduit = ? ";
-    $dbCon = connectDb();
-    $req = $dbCon->prepare($dQuery);
-    $req->execute(array($idproduit));
-    $req->closeCursor();
-}
-
-//--------------------------------------------------------------------------------------------------
-/* Operation */
-
-//Add
-function addOperation($operation) {
-    $iQuery = "INSERT INTO operation (type, quantite, vendeur_idvendeur, produit_idproduit) VALUES(:type, :quantite, :vendeur_idvendeur, :produit_idproduit);";
-    $dbCon = connectDb();
-    $req = $dbCon->prepare($iQuery);
-    $type = ($operation->getIsEntree() == "OUI") ? "entree" : "sortie";
-    $req->execute(array(
-        'type' => $type,
-        'quantite' => $operation->getQuantite(),
-        'vendeur_idvendeur' => $operation->getIdVendeur(),
-        'produit_idproduit' => $operation->getIdProduit()
-    ));
-    $req->closeCursor();
-}
-
-//Stock
-//Add
-/*
-  Insertion dans le stock des produit...
- * le parametre $status est boolean, new ou old sont ses valeurs possibles
- * new dans le cas d'un nouveau produit...et old dans le cas d'un produit existant
- * déjà, mais dont on voudrait augmenter la quantité...
- *  */
-function addStock($stock, $status) {
-    if ($status === "new") {
-        $iQuery = "INSERT INTO stock(qtestockee, produit_idproduit) VALUES(:qtestockee, :produit_idproduit)";
-        $dbCon = connectDb();
-        $req = $dbCon->prepare($iQuery);
-        $req->execute(array(
-            'qtestockee' => $stock->getQteStockee(),
-            'produit_idproduit' => $stock->getProduitIdProduit()
-        ));
-        $req->closeCursor();
-        echo "<script type='text/javascript'>alert('Succes')</script>";
-    } else {
-        $iQuery = "UPDATE stock SET qtestockee = :qtestockee WHERE produit_idproduit = " . $stock->getProduitIdProduit();
-        $dbCon = connectDb();
-        $req = $dbCon->prepare($iQuery);
-        $req->execute(array(
-            'qtestockee' => $stock->getQteStockee(),
-        ));
-        $req->closeCursor();
-    }
-}
-
-//Journalisation opération
-function journaliserOperation() {
-    
 }
 
 //Get an element by any else
@@ -384,7 +296,7 @@ function validerMembre($user, $pass) {
 //Show
 //Show
 //Affichage et formattage des données
-function showJournal($fieldNameArray, $link) {
+function afficherReservations($fieldNameArray, $link) {
     $sQuery = "SELECT * FROM produit,stock, operation WHERE produit.idproduit = stock.produit_idproduit AND produit.idproduit = operation.produit_idproduit AND DATE_FORMAT(operation.date, '%Y-%m-%d')=? AND operation.type = ?";
     $numRow = 1;
     $total = 0;
