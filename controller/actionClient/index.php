@@ -13,6 +13,10 @@ if (isset($data['submit'])) {
     $genre = htmlspecialchars($data['genre']);
     $numNational = htmlspecialchars($data['numNational']);
     $nomVille = htmlspecialchars($data['nomVille']);
+    //These infos are for the user Object
+    $login = htmlspecialchars($data['login']);
+    include_once '../../controller/functions.php';
+    $password = cryptPw(htmlspecialchars($data['password']));
     //Gonna get ville_idville from a Ville objct...
     //Let's call our functions engine...to get database access
     include_once '../../model/functions.php';

@@ -42,7 +42,7 @@ function ajouterClient($client) {
         'numPermi' => $client->getNumPermi(),
         'dateDeNaissance' => $client->getDateDeNaissance(),
         'tel' => $client->getTel(),
-        'genre' => ($client->getGenre()=="Masculin")? "M" : "F",
+        'genre' => ($client->getGenre() == "Masculin") ? "M" : "F",
         'numNational' => $client->getNumNational(),
         'ville_idville' => $client->getIdVille(),
     ));
@@ -126,10 +126,8 @@ function deleteVendeur($idvendeur) {
 }
 
 //--------------------------------------------------------------------------------------------------
-
-
 //Ajouter
-function  ajouterVoiture($voiture) {
+function ajouterVoiture($voiture) {
     $iQuery = "INSERT INTO voiture (numChassi, numPlaque, motorisation, boite, puissance, marque, prix, categorie, photo, assurance_idassurance) VALUES(:numChassi, :numPlaque, :motorisation, :boite, :puissance, :marque, :prix, :categorie, :photo, :assurance_idassurance);";
     $dbCon = connectDb();
     $req = $dbCon->prepare($iQuery);
@@ -149,7 +147,7 @@ function  ajouterVoiture($voiture) {
     echo "<script type='text/javascript'>alert('Succes')</script>";
 }
 
-function ajouterUser($user){
+function ajouterUser($user) {
     $iQuery = "INSERT INTO users (type, login, password, idOfInfos) VALUES(:type, :login, :password, :idOfInfos);";
     $dbCon = connectDb();
     $req = $dbCon->prepare($iQuery);
@@ -160,11 +158,10 @@ function ajouterUser($user){
         'idOfInfos' => $user->getIdOfInfos()
     ));
     $req->closeCursor();
-        
 }
 
-function ajouterEmploye($employe){
-    
+function ajouterEmploye($employe) {
+
     $iQuery = "INSERT INTO employe (nom, prenom) VALUES(:nom, :prenom);";
     $dbCon = connectDb();
     $req = $dbCon->prepare($iQuery);
@@ -436,20 +433,44 @@ function showJournal($fieldNameArray, $link) {
 
 #Fetching Items
 //List Eléments
-function getCboxOptions($table, $field){
 
-	$dbCon=connectDb();
-	$sQuery="SELECT ".$field;
-	$sQuery.=" FROM ".$table;
-	$sQuery.=" WHERE ?";
+function getCboxOptions($table, $field) {
 
-	$pQuery=$dbCon->prepare($sQuery);
-	$pQuery->execute(array(1));
+    $dbCon = connectDb();
+    $sQuery = "SELECT " . $field;
+    $sQuery.=" FROM " . $table;
+    $sQuery.=" WHERE ?";
 
-	while($resultSet=$pQuery->fetch()){
+    $pQuery = $dbCon->prepare($sQuery);
+    $pQuery->execute(array(1));
 
-	echo "<option>".$resultSet[$field]."</option>";
+    while ($resultSet = $pQuery->fetch()) {
 
-	}
-	$pQuery->closeCursor();
+        echo "<option>" . $resultSet[$field] . "</option>";
+    }
+    $pQuery->closeCursor();
+}
+
+#This function help to get a the last saved entry of especially for a criteria given as an arg to this function
+/*
+  This function works on a table that have an auto increment primary key
+ */
+
+function findLIFieldId($table, $criteria) {
+
+    $count=0;
+    $sQuery = "SELECT " . $criteria . " FROM " . $table;
+    $sQuery.=" WHERE 1";
+    $sQuery.=" ORDER BY " . $criteria . " DESC LIMIT 1";
+
+    $dbCon = connectDb();
+    $pQuery = $dbCon->prepare($sQuery);
+    $pQuery->execute();
+
+    while ($resultSet = $pQuery->fetch()) {
+        $count = $resultSet[0];
+    }
+    $pQuery->closeCursor();
+
+    return $count;
 }

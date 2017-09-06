@@ -27,6 +27,10 @@
                     getCboxOptions("ville", "nomVille");
                     ?>
                 </select><br/>
+                <p>Choisissez un nom d'utilisateur et un mot de passe :</p>
+                <label for="login" >Login : </label><input type="text" name="login"  /><br/>
+                <label for="password">Mot de passe : </label><input type="password" name="password"  /><br/>
+                
 
                 <input type="submit" value="Inscription" name="submit" />
             </form>

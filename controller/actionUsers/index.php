@@ -25,16 +25,15 @@ if (isset($data['submit'])) {
             $msg = "<p style='color:green'>Admin créé avec succès...</p>";
             header("Location:../../view/Admin/index.php?param=" . $msg);
         }else{
-            
+          
             ajouterEmploye($employe);
-            $user->setIdOfInfos(getFieldFromAnyElse("employe","nom", $employe->getNom(),"idemploye"));
+            $user->setIdOfInfos(findLIFieldId("employe", "idemploye"));
             ajouterUser($user);
-            $msg = "<p style='color:green'>Admin créé avec succès...</p>";
-            header("Location:../../view/Admin/index.php?param=" . $msg);
+            $msg = "<p style='color:green'>Employé créé avec succès...</p>";
+            header("Location:../../view/Employe/afficher.php?param=" . $msg);
             
         }
         
-
         ajouterClient($client);
         $msg = "<p style='color:green'>Votre inscription a été effectuée avec succès...</p>";
         header("Location:../../view/Client/ajouter.php?param=" . $msg);
