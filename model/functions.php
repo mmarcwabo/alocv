@@ -178,19 +178,16 @@ function ajouterEmploye($employe) {
 
 //Show
 //Affichage et formattage des données
-function afficherVoiture($fieldNameArray, $link) {
-    $sQuery = "SELECT * FROM produit,stock WHERE produit.idproduit = stock.produit_idproduit AND ?";
+function afficherVoiture($link) {
+    $sQuery = "SELECT * FROM voiture";
     $dbCon = connectDb();
     $pQuery = $dbCon->prepare($sQuery);
-    $pQuery->execute(array(1));
+    $pQuery->execute();
 
-    $fieldArray = ['denomination', 'prix', 'qtestockee', 'description'];
+    $fieldArray = ['numChassi', 'numPlaque', 'motorisation', 'boite', 'puissance', 'marque', 'marque', 'prix', 'categorie', 'photo', 'assurance_idassurance'];
 
     echo '<table class="table table-hover table-responsive">';
     echo '<thead>';
-    foreach ($fieldNameArray as $field) {
-        echo '<th class="active">' . $field . '</th>';
-    }
     echo '</thead><tbody>';
     while ($data = $pQuery->fetch()) {
 
@@ -198,9 +195,9 @@ function afficherVoiture($fieldNameArray, $link) {
         foreach ($fieldArray as $field) {
 
             if ($data[$field] == $data[$link]) {
-                $addLeftLinkTag = '<a href="../produit/details.php?idProduit=';
-                $addLeftLinkTag .= $data['idproduit'];
-                $idproduit = $data['idproduit'];
+                $addLeftLinkTag = '<a href="../Reservation/afficher.php?idvoiture=';
+                $addLeftLinkTag .= $data['idvoiture'];
+                $idproduit = $data['idvoiture'];
                 $addLeftLinkTag .= '">';
                 $addRightLinkTag = '</a>';
                 $Link = "";
