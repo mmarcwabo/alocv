@@ -25,7 +25,10 @@ if (isset($data['submit'])) {
             $msg = "<p style='color:green'>Admin créé avec succès...</p>";
             header("Location:../../view/Admin/index.php?param=" . $msg);
         }else{
+            
             ajouterEmploye($employe);
+            $user->setIdOfInfos(getFieldFromAnyElse("employe","nom", $employe->getNom(),"idemploye"));
+            ajouterUser($user);
             $msg = "<p style='color:green'>Admin créé avec succès...</p>";
             header("Location:../../view/Admin/index.php?param=" . $msg);
             

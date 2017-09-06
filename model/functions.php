@@ -128,7 +128,7 @@ function deleteVendeur($idvendeur) {
 //--------------------------------------------------------------------------------------------------
 
 
-//Add
+//Ajouter
 function  ajouterVoiture($voiture) {
     $iQuery = "INSERT INTO voiture (numChassi, numPlaque, motorisation, boite, puissance, marque, prix, categorie, photo, assurance_idassurance) VALUES(:numChassi, :numPlaque, :motorisation, :boite, :puissance, :marque, :prix, :categorie, :photo, :assurance_idassurance);";
     $dbCon = connectDb();
