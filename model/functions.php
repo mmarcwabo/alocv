@@ -126,7 +126,7 @@ function deleteVendeur($idvendeur) {
 }
 
 //--------------------------------------------------------------------------------------------------
-/* Produit */
+
 
 //Add
 function  ajouterVoiture($voiture) {
