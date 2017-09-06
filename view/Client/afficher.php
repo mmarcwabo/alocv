@@ -1,47 +1,19 @@
-<?php
+<?php 
 
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+?>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Client-tableau de bord</title>
+    </head>
+    <body>
+        <span><?php echo (isset($_GET['param']))?$_GET['param']:" "?></span>
+        <h1>Bienvenu</h1>
+        
+        <a href="../Reservation/ajouter.php">Effectuer une reservation</a>
+        <br/><a href="../Voiture/afficher.php">Afficher les voitures diponibles</a>
+        <br/><a href="../Users/logout.php">Se deconnecter</a>
+        
 
-class Assurance{
-    
-    private $IdAssurance;
-    private $TypeAssurance;
-    private $Description;
-    
-    function __construct($IdAssurance, $TypeAssurance, $Description) {
-        $this->IdAssurance = $IdAssurance;
-        $this->TypeAssurance = $TypeAssurance;
-        $this->Description = $Description;
-    }
-    
-    function getIdAssurance() {
-        return $this->IdAssurance;
-    }
-
-    function getTypeAssurance() {
-        return $this->TypeAssurance;
-    }
-
-    function getDescription() {
-        return $this->Description;
-    }
-
-    function setIdAssurance($IdAssurance) {
-        $this->IdAssurance = $IdAssurance;
-    }
-
-    function setTypeAssurance($TypeAssurance) {
-        $this->TypeAssurance = $TypeAssurance;
-    }
-
-    function setDescription($Description) {
-        $this->Description = $Description;
-    }
-
-
-
-}
+    </body>
+</html>

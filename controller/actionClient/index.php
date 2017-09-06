@@ -30,8 +30,11 @@ if (isset($data['submit'])) {
         $client = new Client($nom, $prenom, $adresse, $numPermi, $dateDeNaissance, $tel, $genre, $numNational, $idVille);
 
         ajouterClient($client);
+        include_once '../../app/Users/User.php';
+        $user=new User("Client", $login, $password, findLIFieldId("client", "idclient"));
+        ajouterUser($user);
         $msg = "<p style='color:green'>Votre inscription a été effectuée avec succès...</p>";
-        header("Location:../../view/Client/ajouter.php?param=" . $msg);
+        header("Location:../../view/Client/afficher.php?param=" . $msg);
     }
     else{
         $msg = "<p style='color:red'>Votre inscription a échoué...</p>";

@@ -6,7 +6,7 @@
     </head>
     <body>
         <h1>Inscription - Client</h1>
-        <span><?php echo (isset($_GET['param']))?$_GET['param']:" "?></span>
+        
             <form action="../../controller/actionClient/index.php?action=ajouter" method="POST">
                 <label for="nom" >Nom : </label><input type="text" name="nom"  /><br/>
                 <label for="prenom">Prenom : </label><input type="text" name="prenom"  /><br/>
