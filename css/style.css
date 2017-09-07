@@ -25,11 +25,12 @@ body{
 	-moz-box-shadow: 1px 0px 2px #000;
 	-webkit-box-shadow: 1px 0px 2px #000;
 	box-shadow: 1px 0px 2px #000;
+        color: #fff;
 }
 .top a{
 	padding: 0px 10px;
 	letter-spacing: 1px;
-	color: #ddd;
+	color: #fff;
 	display: block;
 	float: left;
 }
