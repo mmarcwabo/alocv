@@ -207,15 +207,15 @@ function afficherVoiture() {
 
         echo 'Assurance : ' . getFieldFromAnyElse("assurance", "idassurance", $data['assurance_idassurance'], "type") . ","
         . getFieldFromAnyElse("assurance", "idassurance", $data['assurance_idassurance'], "description") . '<br/>';
-        echo "<h4>Caractéristiques</h4>";
+        echo "<h4><strong>Caractéristiques</strong></h4>";
         echo "Motorisation " . $data['motorisation'] . ", numéro chassi " . $data['numChassi'];
         echo "<br/>Boite de vitesse " . $data['boite'] .", ". $data['puissance'] . " CV de puissance";
         echo "<br/>Catégorie : " . $data['categorie'];
         echo "<br/><strong>Prix : " . $data['prix'] . "</strong>";
-        echo '<td><span class="link link-success"><a href="../operation/addOperation.php?idproduit='
-        . $idvoiture . '">Gérer</a></span><span class="link link-primary"><a href="editProduit.php?idproduit='
-        . $idvoiture . '">Modif.</a></span><span class="link link-danger"><a href="deleteProduit.php?idproduit='
-        . $idvoiture . '">Suppr.</a></span></td></tr>';
+        echo '<td><span class="link link-success"><a href="location.php?idvoiture='
+        . $idvoiture . '">Gérer</a></span><span class="link link-primary"><a href="modifier.php?idvoiture='
+        . $idvoiture . '">Modifier</a></span><span class="link link-danger"><a href="supprimer.php?idproduit='
+        . $idvoiture . '">Supprimer</a></span></td></tr>';
     }
     echo '</tbody></table>';
 }
