@@ -272,8 +272,8 @@ function validerMembre($user, $pass) {
         if ($errMsg == '') {
             $dbCon = connectDb();
             $sQuery = "SELECT * ";
-            $sQuery .= "FROM vendeur ";
-            $sQuery .= "WHERE user=:username";
+            $sQuery .= "FROM users ";
+            $sQuery .= "WHERE login=:username";
 
             $records = $dbCon->prepare($sQuery);
             $records->bindParam(':username', $user);
@@ -281,9 +281,9 @@ function validerMembre($user, $pass) {
             $results = $records->fetch(PDO::FETCH_ASSOC);
             if (count($results) > 0 && cryptPw($pass) == $results['pass']) {
                 session_start();
-                $_SESSION['name'] = $results['nom'];
-                $_SESSION['user'] = $results['user'];
-                header('Location:../view/produit/addProduit.php');
+                $_SESSION['id'] = $results['idOfInfos'];
+                $_SESSION['user'] = $results['login'];
+                header('Location:../../view/produit/addProduit.php');
                 exit;
             } else {
                 $errMsg .= "<p style='color:red'>Utilisateur non existant</p>";
