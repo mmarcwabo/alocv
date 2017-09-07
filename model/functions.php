@@ -178,38 +178,44 @@ function ajouterEmploye($employe) {
 
 //Show
 //Affichage et formattage des données
-function afficherVoiture($link) {
+function afficherVoiture() {
     $sQuery = "SELECT * FROM voiture";
     $dbCon = connectDb();
     $pQuery = $dbCon->prepare($sQuery);
     $pQuery->execute();
 
-    $fieldArray = ['numChassi', 'numPlaque', 'motorisation', 'boite', 'puissance', 'marque', 'marque', 'prix', 'categorie', 'photo', 'assurance_idassurance'];
+
 
     echo '<table class="table table-hover table-responsive">';
     echo '<thead>';
     echo '</thead><tbody>';
     while ($data = $pQuery->fetch()) {
-
         echo '<tr>';
-        foreach ($fieldArray as $field) {
+        echo "<td><img src='../../images/" . $data['photo'] . "' alt='image' height=200 width=418/></td><td>";
+        echo "<h3>" . $data['marque'] . "</h3>";
 
-            if ($data[$field] == $data[$link]) {
-                $addLeftLinkTag = '<a href="../Reservation/afficher.php?idvoiture=';
-                $addLeftLinkTag .= $data['idvoiture'];
-                $idproduit = $data['idvoiture'];
-                $addLeftLinkTag .= '">';
-                $addRightLinkTag = '</a>';
-                $Link = "";
-                $Link .= $addLeftLinkTag;
-                $Link .= $data[$field];
-                $Link .= $addRightLinkTag;
-                echo "<td>" . $Link . "</td>";
-            } else {
-                echo '<td>' . $data[$field] . '</td>';
-            }
-        }
-        echo '<td><span class="link link-success"><a href="../operation/addOperation.php?idproduit=' . $idproduit . '">Gérer</a></span><span class="link link-primary"><a href="editProduit.php?idproduit=' . $idproduit . '">Modif.</a></span><span class="link link-danger"><a href="deleteProduit.php?idproduit=' . $idproduit . '">Suppr.</a></span></td></tr>';
+        $addLeftLinkTag = '<a href="../Reservation/afficher.php?idvoiture=';
+        $addLeftLinkTag .= $data['idvoiture'];
+        $idvoiture = $data['idvoiture'];
+        $addLeftLinkTag .= '">';
+        $addRightLinkTag = '</a>';
+        $Link = "";
+        $Link .= $addLeftLinkTag;
+        $Link .= $data['numPlaque'];
+        $Link .= $addRightLinkTag;
+        echo "Plaque : <strong>" . $Link . "</strong><br/>";
+
+        echo 'Assurance : ' . getFieldFromAnyElse("assurance", "idassurance", $data['assurance_idassurance'], "type") . ","
+        . getFieldFromAnyElse("assurance", "idassurance", $data['assurance_idassurance'], "description") . '<br/>';
+        echo "<h4>Caractéristiques</h4>";
+        echo "Motorisation " . $data['motorisation'] . ", numéro chassi " . $data['numChassi'];
+        echo "<br/>Boite de vitesse " . $data['boite'] .", ". $data['puissance'] . " CV de puissance";
+        echo "<br/>Catégorie : " . $data['categorie'];
+        echo "<br/><strong>Prix : " . $data['prix'] . "</strong>";
+        echo '<td><span class="link link-success"><a href="../operation/addOperation.php?idproduit='
+        . $idvoiture . '">Gérer</a></span><span class="link link-primary"><a href="editProduit.php?idproduit='
+        . $idvoiture . '">Modif.</a></span><span class="link link-danger"><a href="deleteProduit.php?idproduit='
+        . $idvoiture . '">Suppr.</a></span></td></tr>';
     }
     echo '</tbody></table>';
 }
@@ -367,7 +373,7 @@ function getCboxOptions($table, $field) {
 
 function findLIFieldId($table, $criteria) {
 
-    $count=0;
+    $count = 0;
     $sQuery = "SELECT " . $criteria . " FROM " . $table;
     $sQuery.=" WHERE 1";
     $sQuery.=" ORDER BY " . $criteria . " DESC LIMIT 1";

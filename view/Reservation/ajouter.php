@@ -9,14 +9,12 @@
     <body>
         <div class="row col-lg-12 col-md-12 col-sm-12">
             <legend>Reservation - Voiture</legend>
-            <div class="col-lg-3">
+            <div class="col-lg-10">
 
                 <?php
                 include_once '../../model/functions.php';
                 afficherVoiture("numPlaque");
                 ?>
-            </div>
-            <div class="col-lg-3">
             </div>
         </div>
         <script type="text/javascript" src="../../js/bootstrap.min.js"></script>
