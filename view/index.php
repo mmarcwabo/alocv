@@ -10,8 +10,12 @@ and open the template in the editor.
         <title></title>
     </head>
     <body>
-        <?php
-        // put your code here
-        ?>
+        <h1>Bienvenu sur notre site</h1>
+        <h2>- Service de location des véhicules -</h2>
+        <a href="Users/login.php">Se connecter</a>
+        <br/><a href="Client/ajouter.php">Souscrire pour une location</a>
+        <br/><a href="Voiture/afficher.php">Parcourir la liste des véhicules</a>
+        <br/><a href="Voiture/afficher.php?historique">Afficher historique des locations</a>
     </body>
 </html>
+
