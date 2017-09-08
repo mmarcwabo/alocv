@@ -184,8 +184,6 @@ function afficherVoiture() {
     $pQuery = $dbCon->prepare($sQuery);
     $pQuery->execute();
 
-
-
     echo '<table class="table table-hover table-responsive">';
     echo '<thead>';
     echo '</thead><tbody>';
@@ -209,7 +207,7 @@ function afficherVoiture() {
         . getFieldFromAnyElse("assurance", "idassurance", $data['assurance_idassurance'], "description") . '<br/>';
         echo "<h4><strong>Caractéristiques</strong></h4>";
         echo "Motorisation " . $data['motorisation'] . ", numéro chassi " . $data['numChassi'];
-        echo "<br/>Boite de vitesse " . $data['boite'] .", ". $data['puissance'] . " CV de puissance";
+        echo "<br/>Boite de vitesse " . $data['boite'] . ", " . $data['puissance'] . " CV de puissance";
         echo "<br/>Catégorie : " . $data['categorie'];
         echo "<br/><strong>Prix : " . $data['prix'] . "</strong>";
         echo '<td><span class="link link-success"><a href="location.php?idvoiture='
@@ -388,4 +386,44 @@ function findLIFieldId($table, $criteria) {
     $pQuery->closeCursor();
 
     return $count;
+}
+
+function afficherHistoriqueLocation() {
+    $sQuery = "SELECT * FROM voiture, client, reservation";
+    $dbCon = connectDb();
+    $pQuery = $dbCon->prepare($sQuery);
+    $pQuery->execute();
+
+    echo '<table class="table table-hover table-responsive">';
+    echo '<thead>';
+    echo '</thead><tbody>';
+    while ($data = $pQuery->fetch()) {
+        echo '<tr>';
+        echo "<td><img src='../../images/" . $data['photo'] . "' alt='image' height=200 width=418/></td><td>";
+        echo "<h3>" . $data['marque'] . "</h3>";
+
+        $addLeftLinkTag = '<a href="../Reservation/afficher.php?idvoiture=';
+        $addLeftLinkTag .= $data['idvoiture'];
+        $idvoiture = $data['idvoiture'];
+        $addLeftLinkTag .= '">';
+        $addRightLinkTag = '</a>';
+        $Link = "";
+        $Link .= $addLeftLinkTag;
+        $Link .= $data['numPlaque'];
+        $Link .= $addRightLinkTag;
+        echo "Plaque : <strong>" . $Link . "</strong><br/>";
+
+        echo 'Assurance : ' . getFieldFromAnyElse("assurance", "idassurance", $data['assurance_idassurance'], "type") . ","
+        . getFieldFromAnyElse("assurance", "idassurance", $data['assurance_idassurance'], "description") . '<br/>';
+        echo "<h4><strong>Caractéristiques</strong></h4>";
+        echo "Motorisation " . $data['motorisation'] . ", numéro chassi " . $data['numChassi'];
+        echo "<br/>Boite de vitesse " . $data['boite'] . ", " . $data['puissance'] . " CV de puissance";
+        echo "<br/>Catégorie : " . $data['categorie'];
+        echo "<br/><strong>Prix : " . $data['prix'] . "</strong>";
+        echo '<td><span class="link link-success"><a href="location.php?idvoiture='
+        . $idvoiture . '">Gérer</a></span><span class="link link-primary"><a href="modifier.php?idvoiture='
+        . $idvoiture . '">Modifier</a></span><span class="link link-danger"><a href="supprimer.php?idproduit='
+        . $idvoiture . '">Supprimer</a></span></td></tr>';
+    }
+    echo '</tbody></table>';
 }

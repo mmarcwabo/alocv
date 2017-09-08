@@ -5,8 +5,4 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-session_start();
-session_destroy();
 
-header('Location:../../index.php');
-exit();
