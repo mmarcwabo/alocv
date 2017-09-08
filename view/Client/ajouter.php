@@ -12,12 +12,12 @@
             <legend>Inscription - Client</legend>
             <div class="col-lg-3">
              <form role="form" action="../../controller/actionClient/index.php?action=ajouter" method="POST">
-                <label for="nom" >Nom : </label><input class="form-control" type="text" name="nom"  /><br/>
-                <label for="prenom">Prenom : </label><input class="form-control" type="text" name="prenom"  /><br/>
-                <label for="adresse">Adresse : </label><input  class="form-control" type="text" name="adresse" /><br/>
-                <label for="numPermi">Numéro permi : </label><input class="form-control" type="text" name="numPermi"/><br/>
-                <label for="dateDeNaissance">Date de naissance : </label><input class="form-control" type="date" name="dateDeNaissance"/><br/>
-                <label for="tel">Numéro télephone : </label><input class="form-control" type="text" name="tel" /><br/>
+                <label for="nom" >Nom : </label><input class="form-control" type="text" name="nom"  required/><br/>
+                <label for="prenom">Prenom : </label><input class="form-control" type="text" name="prenom"  required/><br/>
+                <label for="adresse">Adresse : </label><input  class="form-control" type="text" name="adresse" required/><br/>
+                <label for="numPermi">Numéro permi : </label><input class="form-control" type="text" name="numPermi" required/><br/>
+                <label for="dateDeNaissance">Date de naissance : </label><input class="form-control" type="date" name="dateDeNaissance" required/><br/>
+                <label for="tel">Numéro télephone : </label><input class="form-control" type="text" name="tel" required/><br/>
             </div>
             <div class="col-lg-3">
                 <label for="genre">Genre : </label>
@@ -25,7 +25,7 @@
                     <option>Féminin</option>
                     <option>Masculin</option>
                 </select><br/>
-                <label for="numNational">Numéro national : </label><input class="form-control" type="text" name="numNational"/><br/>
+                <label for="numNational">Numéro national : </label><input class="form-control" type="text" name="numNational" required/><br/>
                 <label for="ville">Ville : </label>
                 <select class="form-control" name="nomVille">
                     <?php
@@ -34,8 +34,8 @@
                     ?>
                 </select><br/>
                 <p>Choisissez un nom d'utilisateur et un mot de passe :</p>
-                <label for="login" >Login : </label><input class="form-control" type="text" name="login"  /><br/>
-                <label for="password">Mot de passe : </label><input class="form-control" type="password" name="password"  /><br/>
+                <label for="login" >Login : </label><input class="form-control" type="text" name="login"  required/><br/>
+                <label for="password">Mot de passe : </label><input class="form-control" type="password" name="password" required /><br/>
 
 
                 <input class="btn btn-success" type="submit" value="Inscription" name="submit" />
