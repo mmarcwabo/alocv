@@ -1,5 +1,7 @@
 <?php
 session_start();
+$_SESSION['idclient']=3;
+$jours = 0;
 ?>
 <html>
     <head>
@@ -13,7 +15,7 @@ session_start();
         <div class="row col-lg-12 col-md-12 col-sm-12">
             <legend>Soumettez votre reservation</legend>
             <div class="col-lg-3">
-                <form name=formu >
+                <form name=formu action="reservation.php" method="POST">
                     <label for="debut">Date de debut : </label><input class="form-control"  name="debut" type="date" required><br>
                     <label for="fin">Date de fin : </label><input class="form-control"  name="fin" type="date" required><br>
                     <input name="idvoiture" type="hidden" value="<?php echo $_GET['idvoiture']; ?>">

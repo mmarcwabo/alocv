@@ -211,9 +211,11 @@ function afficherVoiture() {
         echo "<br/>Catégorie : " . $data['categorie'];
         echo "<br/><strong>Prix : " . $data['prix'] . "</strong>";
         echo '<td><span class="link link-success"><a href="location.php?idvoiture='
-        . $idvoiture . '">Gérer</a></span><span class="link link-primary"><a href="modifier.php?idvoiture='
-        . $idvoiture . '">Modifier</a></span><span class="link link-danger"><a href="supprimer.php?idproduit='
-        . $idvoiture . '">Supprimer</a></span></td></tr>';
+        . $idvoiture . '">Louer</a>';
+                // '</span><span class="link link-primary">'
+                // '<a href="modifier.php?idvoiture='
+       // .$idvoiture; //. '">Modifier</a></span><span class="link link-danger"><a href="supprimer.php?idproduit='
+        //. $idvoiture . '">Supprimer</a></span></td></tr>';
     }
     echo '</tbody></table>';
 }
@@ -277,11 +279,13 @@ function validerMembre($user, $pass) {
             $records->bindParam(':username', $user);
             $records->execute();
             $results = $records->fetch(PDO::FETCH_ASSOC);
-            if (count($results) > 0 && cryptPw($pass) == $results['pass']) {
+            if (count($results) > 0 && cryptPw($pass) == $results['password']) {
                 session_start();
                 $_SESSION['id'] = $results['idOfInfos'];
                 $_SESSION['user'] = $results['login'];
-                header('Location:../../view/produit/addProduit.php');
+                $_SESSION['privilege'] = $results['type'];
+
+                header('Location:../Reservation/ajouter.php');
                 exit;
             } else {
                 $errMsg .= "<p style='color:red'>Utilisateur non existant</p>";
@@ -292,56 +296,6 @@ function validerMembre($user, $pass) {
         header('Location:../index.php?err=' . $errMsg);
         exit;
     }
-}
-
-//Show
-//Show
-//Affichage et formattage des données
-function afficherReservations($fieldNameArray, $link) {
-    $sQuery = "SELECT * FROM produit,stock, operation WHERE produit.idproduit = stock.produit_idproduit AND produit.idproduit = operation.produit_idproduit AND DATE_FORMAT(operation.date, '%Y-%m-%d')=? AND operation.type = ?";
-    $numRow = 1;
-    $total = 0;
-    $dbCon = connectDb();
-    $pQuery = $dbCon->prepare($sQuery);
-    $pQuery->execute(array(date('Y-m-d'), "sortie"));
-
-    $fieldArray = ['denomination', 'quantite', 'prix', 'description'];
-    if ($pQuery->rowCount() < 1) {
-        echo "Aucune vente effectuée...";
-        exit;
-    }
-    echo '<table class="table table-striped">';
-    foreach ($fieldNameArray as $field) {
-        echo '<th>' . $field . '</th>';
-    }
-    while ($data = $pQuery->fetch()) {
-
-        echo '<tr>';
-        echo '<td>' . $numRow . '</td>';
-        foreach ($fieldArray as $field) {
-
-            if ($data[$field] == $data[$link]) {
-                $addLeftLinkTag = '<a href="../produit/details.php?idProduit=';
-                $addLeftLinkTag .= $data['idproduit'];
-                ///$idproduit = $data['idproduit'];
-                $addLeftLinkTag .= '">';
-                $addRightLinkTag = '</a>';
-                $Link = "";
-                $Link .= $addLeftLinkTag;
-                $Link .= $data[$field];
-                $Link .= $addRightLinkTag;
-                echo "<td>" . $Link . "</td>";
-            } else {
-                echo '<td>' . $data[$field] . '</td>';
-            }
-        }
-        echo '<td>' . $data['quantite'] * $data['prix'] . '</td></tr>';
-        $numRow++;
-        $total += $data['quantite'] * $data['prix'];
-    }
-
-    echo '<tr><td>Total recettes :</td><td><td></td><td></td><td></td></td><td>' . $total . '</td></tr>';
-    echo '</table>';
 }
 
 #Fetching Items
