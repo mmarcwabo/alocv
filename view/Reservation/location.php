@@ -14,8 +14,8 @@ session_start();
             <legend>Soumettez votre reservation</legend>
             <div class="col-lg-3">
                 <form name=formu >
-                    <label for="debut">Date de debut : </label><input class="form-control"  name="debut" type="date"><br>
-                    <label for="fin">Date de fin : </label><input class="form-control"  name="fin" type="date"><br>
+                    <label for="debut">Date de debut : </label><input class="form-control"  name="debut" type="date" required><br>
+                    <label for="fin">Date de fin : </label><input class="form-control"  name="fin" type="date" required><br>
                     <input name="idvoiture" type="hidden" value="<?php echo $_GET['idvoiture']; ?>">
                     <input name="idclient" type="hidden" value="<?php echo $_SESSION['idclient']; ?>">
                     <input  class="btn btn-success" type="submit" value="Reserver">
