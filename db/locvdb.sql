@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 06, 2017 at 11:20 AM
+-- Generation Time: Sep 08, 2017 at 08:26 AM
 -- Server version: 5.7.14
 -- PHP Version: 5.6.25
 
@@ -67,7 +67,13 @@ INSERT INTO `client` (`idclient`, `nom`, `prenom`, `adresse`, `numPermi`, `dateD
 (1, 'Passang', 'Clme', 'Himbi II, Du lac', '122348', '2017-09-12', '993803355', 'M', '12344444', 6),
 (2, 'Passang', 'Clme', 'Himbi II, Du lac', '122348', '2017-09-12', '993803355', 'M', '12344444', 6),
 (3, 'Passang', 'Clme', 'Himbi II, Du lac', '122348', '2017-09-12', '993803355', 'M', '12344444', 6),
-(4, 'Passang', 'Clme', 'Himbi II, Du lac', '122348', '2017-09-12', '993803355', 'M', '12344444', 6);
+(4, 'Passang', 'Clme', 'Himbi II, Du lac', '122348', '2017-09-12', '993803355', 'M', '12344444', 6),
+(5, 'Passang', 'Clme', 'Himbi II, Du lac', '122348', '2017-09-28', '993803355', 'M', '12344444', 9),
+(6, 'Passang', 'Clme', 'Himbi II, Du lac', '122348', '2017-09-28', '993803355', 'M', '12344444', 9),
+(7, 'dfqsdfs', 'qsdfqsdf', 'Himbi II, Du lac', 'qsfdqsd', '2017-09-12', '12452345', 'M', '45242', 7),
+(8, 'dfqsdfs', 'Clme', 'Himbi II, Du lac', 'qsfdqsd', '2017-09-06', '993803355', 'F', '45242', 1),
+(9, 'dfqsdfs', 'Clme', 'Himbi II, Du lac', 'qsfdqsd', '2017-09-06', '993803355', 'F', '12344444', 1),
+(10, 'Passang', 'Clément', 'Himbi II, Du lac', '122348', '2017-09-07', '993803355', 'M', '45242', 11);
 
 -- --------------------------------------------------------
 
@@ -80,6 +86,21 @@ CREATE TABLE `employe` (
   `nom` varchar(15) NOT NULL,
   `prenom` varchar(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `employe`
+--
+
+INSERT INTO `employe` (`idemploye`, `nom`, `prenom`) VALUES
+(1, 'Passang', 'Clément'),
+(2, 'Passang', 'Clément'),
+(3, 'Passang', 'Clément'),
+(4, 'Passang', 'Clément'),
+(5, 'Passang', 'Clément'),
+(6, 'Passang', 'Clément'),
+(7, 'Passang', 'Clément'),
+(8, 'Passang', 'Clément'),
+(9, 'Marcellin', 'Wabo');
 
 -- --------------------------------------------------------
 
@@ -123,6 +144,15 @@ CREATE TABLE `users` (
   `password` varchar(45) NOT NULL,
   `idOfInfos` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`idusers`, `type`, `login`, `password`, `idOfInfos`) VALUES
+(1, 'Admin', 'cp', '678d6376d8c2ca39e09ce2a7f99d24ca5363200d', 0),
+(2, 'Employe', 'cpE', 'ff5352932747d7a5d0d1c2c395730b19732b41b8', 1),
+(7, 'Client', 'cpC', '077f081a7ca3bb38f86a4109d516fdfce08f06f9', 6);
 
 -- --------------------------------------------------------
 
@@ -258,12 +288,17 @@ ALTER TABLE `assurance`
 -- AUTO_INCREMENT for table `client`
 --
 ALTER TABLE `client`
-  MODIFY `idclient` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `idclient` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+--
+-- AUTO_INCREMENT for table `employe`
+--
+ALTER TABLE `employe`
+  MODIFY `idemploye` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `idusers` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idusers` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT for table `ville`
 --
@@ -294,8 +329,8 @@ ALTER TABLE `facture`
 -- Constraints for table `reservation`
 --
 ALTER TABLE `reservation`
-  ADD CONSTRAINT `fk_reservation_employe1` FOREIGN KEY (`employe_idemploye`) REFERENCES `employe` (`idemploye`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_reservation_client1` FOREIGN KEY (`client_idclient`) REFERENCES `client` (`idclient`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_reservation_employe1` FOREIGN KEY (`employe_idemploye`) REFERENCES `employe` (`idemploye`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_reservation_voiture1` FOREIGN KEY (`voiture_idvoiture`) REFERENCES `voiture` (`idvoiture`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
